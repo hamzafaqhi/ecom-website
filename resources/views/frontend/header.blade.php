@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
@@ -18,6 +20,7 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{ asset('amado/css/core-style.css')}}">
     <link rel="stylesheet" href="{{ asset('amado/style.css')}}">
+    @yield('stylesheet')
 </head>
 
 <body>
@@ -124,9 +127,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('shop')}}">Shop</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('product.details')}}">Product</a>
-                                        </li>
+                                       
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('cart')}}">Cart</a>
                                         </li>
@@ -154,7 +155,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{ asset('amado/js/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{ asset('amado/js/active.js')}}"></script>
-
+    @yield('scripts')
 </body>
 
 </html>

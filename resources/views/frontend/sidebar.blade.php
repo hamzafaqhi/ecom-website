@@ -12,7 +12,7 @@
                 <ul>
                     <li class=""><a href="{{ route('home')}}">Home</a></li>
                     <li><a href="{{ route('shop')}}">Shop</a></li>
-                    <li><a href="{{ route('product.details')}}">Product</a></li>
+                   
                     <li><a href="{{ route('cart')}}">Cart</a></li>
                     <li><a href="{{ route('checkout')}}">Checkout</a></li>
                     
@@ -25,7 +25,7 @@
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="{{ route('cart')}}" class="cart-nav"><img src="{{ asset('amado/img/core-img/cart.png') }}" alt=""> Cart <span>(0)</span></a>
+                <a href="{{ route('cart')}}" class="cart-nav"><img src="{{ asset('amado/img/core-img/cart.png') }}" alt=""> Cart <span></span>{{ Session::get('cart_count')}}</a>
                 <a href="#" class="fav-nav"><img src="{{ asset('amado/img/core-img/favorites.png') }}" alt=""> Favourite</a>
                 <a href="#" class="search-nav"><img src="{{ asset('amado/img/core-img/search.png') }}" alt=""> Search</a>
             </div>

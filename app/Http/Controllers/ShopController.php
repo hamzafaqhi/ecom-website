@@ -4,30 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 
-class DashboardController extends Controller
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-    public function index()
+    public function index($id = null,$limit = 10)
     {
-        $product = Product::where('pr_status','instock')->get();
-        return view('pages.home',compact('product'));
-        
-    } 
-    
-    public function product_details($id)
-    {
-        $product = Product::where('id',$id)->first();
-        return view('pages.product-details',compact('product'));
-        
+        // dd($limit);
+        if(!empty($id))
+        {
+            $category = Category::where('id',$id)->first();
+            $products = Product::where('category_id',$id)->latest()->paginate($limit);
+        }
+        else
+        {
+            $products = Product::where('pr_status','instock')->latest()->paginate($limit);
+        }
+        $products->currentPage();
+        $products->total();
+        $products->perPage();
+        $category = Category::get();
+        return view('pages.shop',compact('products','category'));
+       
     }
 
     /**

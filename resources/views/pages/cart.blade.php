@@ -20,28 +20,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @if(!empty($cart_items))
+                                    @foreach($cart_items as $c)
+                                    <tr id="{{$c->id}}">
                                         <td class="cart_product_img">
                                             <a href="#"><img src="{{ asset('amado/img/bg-img/cart1.jpg')}}" alt="Product"></a>
                                         </td>
                                         <td class="cart_product_desc">
-                                            <h5>White Modern Chair</h5>
+                                            <h5>{{$c->product_name}}</h5>
                                         </td>
                                         <td class="price">
-                                            <span>$130</span>
+                                            <span>Rs {{$c->price}}</span>
                                         </td>
                                         <td class="qty">
                                             <div class="qty-btn d-flex">
                                                 <p>Qty</p>
                                                 <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty{{$c->id}}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true">&nbsp;</i></span>
+                                                    <input type="number" class="qty-text" id="qty{{$c->id}}" step="1" min="1" max="300" name="quantity" value="{{$c->quantity}}">
+                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty{{$c->id}}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    @endforeach
+                                    @endif
+                                    <!-- <tr>
                                         <td class="cart_product_img">
                                             <a href="#"><img src="{{ asset('amado/img/bg-img/cart2.jpg')}}" alt="Product"></a>
                                         </td>
@@ -82,7 +86,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -91,16 +95,47 @@
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$140.00</span></li>
+                                <li><span>subtotal:</span> <span>Rs {{ Session::get('total_price')}}</span></li>
                                 <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>total:</span> <span>Rs {{ Session::get('total_price')}}</span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="{{ route('cart')}}" class="btn amado-btn w-100">Checkout</a>
+                                <a href="{{ route('checkout')}}" class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endsection
+        @section('scripts')
+        <script>
+    //     $(".qty").on('change' , 'input[type="number"]',function() { 
+    //         alert('hi');
+    //     var q = ($(this).val());
+    //     var rowid = $(this).closest('tr').attr('id');
+    //     var session_id = $("#session").val();
+    //     $.ajaxSetup
+	// 			({
+	// 				headers: {
+	// 					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+	// 				}
+	// 			});
+	// 			$.ajax({
+	// 				url: "/update/cart",
+	// 				type : 'get',
+	// 				data: {id: rowid,quantity: q, session: session_id},
+	// 				success: function(result)
+	// 				{
+    //                     $(".alert-success").css("display", "block");
+	// 					setTimeout(()=>{
+	// 					$(".alert-success").hide();	
+	// 					},2000)
+	// 				},
+	// 				error: function(){
+	// 					console.log("error");
+	// 				}
+	// 			});
+    // })
+        </script>
         @endsection
